@@ -14,6 +14,11 @@ export type CustomAnonymization = {
 };
 
 export type AnonymizeOptions = {
+  enableEmails?: boolean;
+  enableUrls?: boolean;
+  enableIps?: boolean;
+  enableSecrets?: boolean;
+  enableNames?: boolean;
   customAnonymizations?: CustomAnonymization[];
 };
 
@@ -31,6 +36,11 @@ const AWS_KEY_REGEX = /\bAKIA[0-9A-Z]{16}\b/g;
 export function anonymize(input: string, options: AnonymizeOptions = {}): AnonymizeResult {
   let code = input;
   const map: Record<string, string> = {};
+  const enableEmails = options.enableEmails ?? true;
+  const enableUrls = options.enableUrls ?? true;
+  const enableIps = options.enableIps ?? true;
+  const enableSecrets = options.enableSecrets ?? true;
+  const enableNames = options.enableNames ?? true;
   let secretCount = 0;
   let emailCount = 0;
   let urlCount = 0;
@@ -46,41 +56,51 @@ export function anonymize(input: string, options: AnonymizeOptions = {}): Anonym
     });
   }
 
-  code = code.replace(EMAIL_REGEX, (match) => {
-    if (!map[match]) {
-      emailCount += 1;
-      map[match] = "user@email.com";
-    }
-    return map[match];
-  });
+  if (enableEmails) {
+    code = code.replace(EMAIL_REGEX, (match) => {
+      if (!map[match]) {
+        emailCount += 1;
+        map[match] = "user@email.com";
+      }
+      return map[match];
+    });
+  }
 
-  code = code.replace(URL_REGEX, (match) => {
-    if (!map[match]) {
-      urlCount += 1;
-      map[match] = "https://example.com";
-    }
-    return map[match];
-  });
+  if (enableUrls) {
+    code = code.replace(URL_REGEX, (match) => {
+      if (!map[match]) {
+        urlCount += 1;
+        map[match] = "https://example.com";
+      }
+      return map[match];
+    });
+  }
 
-  code = code.replace(IP_REGEX, (match) => {
-    if (!map[match]) {
-      ipCount += 1;
-      map[match] = "0.0.0.0";
-    }
-    return map[match];
-  });
+  if (enableIps) {
+    code = code.replace(IP_REGEX, (match) => {
+      if (!map[match]) {
+        ipCount += 1;
+        map[match] = "0.0.0.0";
+      }
+      return map[match];
+    });
+  }
 
-  code = code.replace(AWS_KEY_REGEX, (match) => {
-    if (!map[match]) {
-      secretCount += 1;
-      map[match] = `SECRET_${secretCount}`;
-    }
-    return map[match];
-  });
+  if (enableSecrets) {
+    code = code.replace(AWS_KEY_REGEX, (match) => {
+      if (!map[match]) {
+        secretCount += 1;
+        map[match] = `SECRET_${secretCount}`;
+      }
+      return map[match];
+    });
+  }
 
-  const nameResult = replaceHumanNamesInText(code, map);
-  code = nameResult.text;
-  nameCount = nameResult.replacements;
+  if (enableNames) {
+    const nameResult = replaceHumanNamesInText(code, map);
+    code = nameResult.text;
+    nameCount = nameResult.replacements;
+  }
 
   return {
     code,
