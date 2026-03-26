@@ -86,6 +86,16 @@
           "default": true,
           "description": "Open anonymized output in a new editor tab."
         }
+      },
+      "codeAnonymizer.highlight.enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable inline highlight of anonymized values"
+      },
+      "codeAnonymizer.highlight.color": {
+        "type": "string",
+        "default": "rgba(0, 255, 0, 0.15)",
+        "description": "Background color for anonymized highlights"
       }
     }
   }
