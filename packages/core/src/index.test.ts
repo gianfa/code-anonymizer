@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { anonymize } from "./index";
+import { anonymize, parseAnonymizations } from "./index";
 
 describe("anonymize", () => {
   it("replaces email", () => {
@@ -42,5 +42,17 @@ describe("anonymize", () => {
 
     const matches = result.code.match(/user@email\.com/g) || [];
     expect(matches.length).toBe(2);
+  });
+
+  it("applies custom anonymizations from regex map", () => {
+    const input = 'const id = "customer-identity-123";';
+    const customAnonymizations = parseAnonymizations({
+      "/\\b\\w*identity\\w*-\\d{3}\\b/g": "my-identity"
+    });
+
+    const result = anonymize(input, { customAnonymizations });
+
+    expect(result.code).toContain("my-identity");
+    expect(Object.values(result.map)).toContain("my-identity");
   });
 });

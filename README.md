@@ -60,6 +60,28 @@ node packages/core/dist/cli.js ./input.txt
 
 Anonymized code is printed to `stdout`, while the findings summary is printed to `stderr`.
 
+### Custom anonymizations from JSON
+
+You can pass a JSON file that maps JavaScript regex literals (as keys) to replacements (as values):
+
+```json
+{
+  "/\\b\\w*identity\\w*-\\d{3}\\b/g": "my-identity"
+}
+```
+
+Use either:
+
+```bash
+node packages/core/dist/cli.js ./input.txt ./anonymizations.json
+```
+
+or:
+
+```bash
+ANONYMIZE_JSON=./anonymizations.json node packages/core/dist/cli.js ./input.txt
+```
+
 ## Practical examples
 
 See [`docs/examples`](./docs/examples):
