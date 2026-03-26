@@ -1,8 +1,11 @@
+import { replaceHumanNamesInText } from "./names";
+
 export type Findings = {
   secrets: number;
   emails: number;
   urls: number;
   ips: number;
+  names: number;
 };
 
 export type CustomAnonymization = {
@@ -32,6 +35,7 @@ export function anonymize(input: string, options: AnonymizeOptions = {}): Anonym
   let emailCount = 0;
   let urlCount = 0;
   let ipCount = 0;
+  let nameCount = 0;
 
   for (const { pattern, replacement } of options.customAnonymizations ?? []) {
     code = code.replace(pattern, (match) => {
@@ -74,13 +78,18 @@ export function anonymize(input: string, options: AnonymizeOptions = {}): Anonym
     return map[match];
   });
 
+  const nameResult = replaceHumanNamesInText(code, map);
+  code = nameResult.text;
+  nameCount = nameResult.replacements;
+
   return {
     code,
     findings: {
       secrets: secretCount,
       emails: emailCount,
       urls: urlCount,
-      ips: ipCount
+      ips: ipCount,
+      names: nameCount
     },
     map
   };

@@ -56,3 +56,20 @@ describe("anonymize", () => {
     expect(Object.values(result.map)).toContain("my-identity");
   });
 });
+
+it("replaces human names", () => {
+  const input = `const author = "Marco and Giulia";`;
+  const result = anonymize(input);
+
+  expect(result.code).toContain("PERSON_1");
+  expect(result.code).toContain("PERSON_2");
+  expect(result.findings.names).toBe(2);
+});
+
+it("keeps human name mapping consistent", () => {
+  const input = `"Marco" + "Marco"`;
+  const result = anonymize(input);
+
+  const matches = result.code.match(/PERSON_1/g) || [];
+  expect(matches.length).toBe(2);
+});
