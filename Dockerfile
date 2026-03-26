@@ -9,6 +9,7 @@ RUN apt-get update \
     ca-certificates \
     bash \
     openssh-client \
+    zsh \
   && rm -rf /var/lib/apt/lists/*
 
 RUN corepack enable

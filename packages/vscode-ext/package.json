@@ -1,0 +1,27 @@
+{
+  "name": "code-anonymizer-vscode",
+  "version": "0.1.0",
+  "main": "dist/extension.js",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "activationEvents": [
+    "onCommand:code-anonymizer.anonymize"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "code-anonymizer.anonymize",
+        "title": "Anonymize Current File"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsup src/extension.ts --format cjs",
+    "dev": "tsup src/extension.ts --watch --format cjs"
+  },
+  "dependencies": {
+    "@code-anonymizer/core": "workspace:*"
+  }
+}

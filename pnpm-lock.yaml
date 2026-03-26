@@ -9,3 +9,9 @@ importers:
   .: {}
 
   packages/core: {}
+
+  packages/vscode-ext:
+    dependencies:
+      '@code-anonymizer/core':
+        specifier: workspace:*
+        version: link:../core
