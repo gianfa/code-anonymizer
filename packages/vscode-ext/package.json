@@ -13,15 +13,28 @@
     "commands": [
       {
         "command": "code-anonymizer.anonymize",
-        "title": "Anonymize Current File"
+        "title": "Anonymize"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "code-anonymizer.anonymize",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
-    "build": "tsup src/extension.ts --format cjs",
-    "dev": "tsup src/extension.ts --watch --format cjs"
+    "build": "tsup src/extension.ts --format cjs --external vscode",
+    "dev": "tsup src/extension.ts --watch --format cjs --external vscode"
   },
   "dependencies": {
     "@code-anonymizer/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
   }
 }
