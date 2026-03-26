@@ -21,7 +21,7 @@
       "settings": {
         "editor.formatOnSave": true,
         "files.eol": "\n",
-        "js/ts.tsdk.path": "node_modules/typescript/lib",
+        "js/ts.tsdk.path": "node_modules/typescript/lib"
       }
     }
   },
