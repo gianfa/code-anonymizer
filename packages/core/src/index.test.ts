@@ -73,3 +73,34 @@ it("keeps human name mapping consistent", () => {
   const matches = result.code.match(/PERSON_1/g) || [];
   expect(matches.length).toBe(2);
 });
+
+it("supports disabling individual detectors", () => {
+  const input = `
+    const email = "marco@startup.it";
+    const url = "https://internal.api";
+    const ip = "192.168.1.1";
+    const key = "AKIA1234567890ABCDEF";
+    const name = "Marco";
+  `;
+
+  const result = anonymize(input, {
+    enableEmails: false,
+    enableUrls: false,
+    enableIps: false,
+    enableSecrets: false,
+    enableNames: false
+  });
+
+  expect(result.code).toContain("marco@startup.it");
+  expect(result.code).toContain("https://internal.api");
+  expect(result.code).toContain("192.168.1.1");
+  expect(result.code).toContain("AKIA1234567890ABCDEF");
+  expect(result.code).toContain("Marco");
+  expect(result.findings).toEqual({
+    emails: 0,
+    urls: 0,
+    ips: 0,
+    secrets: 0,
+    names: 0
+  });
+});

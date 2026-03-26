@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { anonymize } from "@code-anonymizer/core";
+import { anonymize, parseAnonymizations, type CustomAnonymization } from "@code-anonymizer/core";
 
 export function activate(context: vscode.ExtensionContext): void {
   const command = vscode.commands.registerCommand("code-anonymizer.anonymize", async () => {
@@ -12,12 +12,29 @@ export function activate(context: vscode.ExtensionContext): void {
 
     const config = vscode.workspace.getConfiguration("codeAnonymizer");
 
+    const customPatterns = config.get<Array<{ name: string; regex: string; replace: string }>>(
+      "customPatterns",
+      []
+    );
+    const customAnonymizations: CustomAnonymization[] = [];
+
+    for (const pattern of customPatterns) {
+      try {
+        customAnonymizations.push(...parseAnonymizations({ [pattern.regex]: pattern.replace }));
+      } catch {
+        void vscode.window.showWarningMessage(
+          `Skipping invalid custom pattern "${pattern.name}". Expected regex literal format like /pattern/gi.`
+        );
+      }
+    }
+
     const options = {
+      enableEmails: config.get<boolean>("enableEmails", true),
+      enableUrls: config.get<boolean>("enableUrls", true),
+      enableIps: config.get<boolean>("enableIps", true),
+      enableSecrets: config.get<boolean>("enableSecrets", true),
       enableNames: config.get<boolean>("enableNames", false),
-      customPatterns: config.get<Array<{ name: string; regex: string; replace: string }>>(
-        "customPatterns",
-        []
-      )
+      customAnonymizations
     };
 
     const openInNewTab = config.get<boolean>("openInNewTab", true);
