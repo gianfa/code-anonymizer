@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--profile=ExtensionDev",
+        "--disable-extension=GitHub.copilot",
+        "--disable-extension=GitHub.copilot-chat",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-ext",
+        "${workspaceFolder}/devhost.code-workspace"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/packages/vscode-ext/dist/**/*.js"
+      ]
+    }
+  ]
+}
