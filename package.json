@@ -7,10 +7,14 @@
     "dev": "pnpm -r dev",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r --if-present lint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "scan:secrets": "gitleaks git . --log-opts='-1'",
+    "scan:deps": "osv-scanner scan -L pnpm-lock.yaml",
+    "scan": "pnpm scan:deps && pnpm scan:secrets"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "eslint": "^10.1.0",
     "tsx": "^4.21.0",
     "vitest": "^3.2.4"
   }
