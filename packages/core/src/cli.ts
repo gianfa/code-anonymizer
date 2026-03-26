@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from "node:fs/promises";
-import { anonymize, parseAnonymizations } from "./index";
+import { anonymize, parseAnonymizations, type Findings } from "./index";
 
 async function main() {
   const filePath = process.argv[2];
@@ -46,13 +46,8 @@ function isRecordOfStrings(value: unknown): value is Record<string, string> {
   return Object.values(value).every((entry) => typeof entry === "string");
 }
 
-function formatFindings(findings: {
-  secrets: number;
-  emails: number;
-  urls: number;
-  ips: number;
-}) {
-  return `{ secrets: ${findings.secrets}, emails: ${findings.emails}, urls: ${findings.urls}, ips: ${findings.ips} }`;
+function formatFindings(findings: Findings): string {
+  return `{ secrets: ${findings.secrets}, emails: ${findings.emails}, urls: ${findings.urls}, ips: ${findings.ips}, names: ${findings.names} }`;
 }
 
 main().catch((error: unknown) => {

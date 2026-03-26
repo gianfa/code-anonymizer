@@ -11,6 +11,11 @@ type CustomPatternConfig = {
   replace: string;
 };
 
+type AnonymizedSpan = {
+  start: number;
+  end: number;
+};
+
 function summarizeFindings(findings: Record<string, number>): { summary: string; total: number } {
   const labels: Record<string, string> = {
     emails: "email",
@@ -70,6 +75,21 @@ function computeChangedLineRanges(
   }
 
   return ranges;
+}
+
+function computeSpanRanges(
+  spans: AnonymizedSpan[],
+  targetDocument: vscode.TextDocument
+): vscode.Range[] {
+  const textLength = targetDocument.getText().length;
+
+  return spans
+    .filter((span) => span.start >= 0 && span.end >= span.start && span.end <= textLength)
+    .map((span) => {
+      const start = targetDocument.positionAt(span.start);
+      const end = targetDocument.positionAt(span.end);
+      return new vscode.Range(start, end);
+    });
 }
 
 function createDecorationType(): vscode.TextEditorDecorationType {
@@ -164,7 +184,7 @@ export function activate(context: vscode.ExtensionContext): void {
       const highlightEnabled = config.get<boolean>("highlight.enabled", true);
 
       const originalCode = sourceEditor.document.getText();
-      const { code, findings } = anonymize(originalCode, options);
+      const { code, findings, spans = [] } = anonymize(originalCode, options);
       const { summary, total } = summarizeFindings(findings);
 
       if (total === 0) {
@@ -190,7 +210,12 @@ export function activate(context: vscode.ExtensionContext): void {
         });
 
         if (highlightEnabled) {
-          const ranges = computeChangedLineRanges(originalCode, code, targetDocument);
+          const preciseRanges = computeSpanRanges(spans, targetDocument);
+          const ranges =
+            preciseRanges.length > 0
+              ? preciseRanges
+              : computeChangedLineRanges(originalCode, code, targetDocument);
+
           targetEditor.setDecorations(decorationType, ranges);
         }
 
@@ -210,7 +235,12 @@ export function activate(context: vscode.ExtensionContext): void {
         const updatedEditor = vscode.window.activeTextEditor;
 
         if (updatedEditor && updatedEditor.document === sourceEditor.document) {
-          const ranges = computeChangedLineRanges(originalCode, code, updatedEditor.document);
+          const preciseRanges = computeSpanRanges(spans, updatedEditor.document);
+          const ranges =
+            preciseRanges.length > 0
+              ? preciseRanges
+              : computeChangedLineRanges(originalCode, code, updatedEditor.document);
+
           updatedEditor.setDecorations(decorationType, ranges);
         }
       }
