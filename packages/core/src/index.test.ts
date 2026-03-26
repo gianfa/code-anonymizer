@@ -74,6 +74,14 @@ it("keeps human name mapping consistent", () => {
   expect(matches.length).toBe(2);
 });
 
+it("replaces names with accented initial letters", () => {
+  const input = `const author = "Èrica";`;
+  const result = anonymize(input);
+
+  expect(result.code).toContain("PERSON_1");
+  expect(result.findings.names).toBe(1);
+});
+
 it("supports disabling individual detectors", () => {
   const input = `
     const email = "marco@startup.it";
