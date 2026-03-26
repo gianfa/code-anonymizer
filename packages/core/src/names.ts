@@ -65,7 +65,7 @@ export function replaceHumanNamesInText(
   let personCounter =
     Object.values(map).filter((value) => /^PERSON_\d+$/.test(value)).length;
 
-  const text = input.replace(/\b[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]*\b/g, (match) => {
+  const text = input.replace(/(?<![A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]*(?![A-Za-zÀ-ÿ])/g, (match) => {
     if (!isCandidateName(match)) return match;
 
     const normalized = normalizeToken(match);
