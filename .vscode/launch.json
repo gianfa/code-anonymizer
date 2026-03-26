@@ -10,11 +10,9 @@
         "--disable-extension=GitHub.copilot",
         "--disable-extension=GitHub.copilot-chat",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-ext",
-        "${workspaceFolder}/devhost.code-workspace"
+        "${workspaceFolder}"
       ],
-      "outFiles": [
-        "${workspaceFolder}/packages/vscode-ext/dist/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/packages/vscode-ext/dist/**/*.js"]
     }
   ]
 }

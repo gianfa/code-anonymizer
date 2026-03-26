@@ -40,7 +40,15 @@ export function activate(context: vscode.ExtensionContext): void {
     const openInNewTab = config.get<boolean>("openInNewTab", true);
 
     const originalCode = editor.document.getText();
-    const { code } = anonymize(originalCode, options);
+    const { code, findings } = anonymize(originalCode, options);
+
+    const { summary, total } = summarizeFindings(findings);
+
+    if (total === 0) {
+      void vscode.window.showInformationMessage("No sensitive patterns found.");
+    } else {
+      void vscode.window.showInformationMessage(`Anonymized: ${summary}`);
+    }
 
     if (openInNewTab) {
       const doc = await vscode.workspace.openTextDocument({
@@ -65,6 +73,40 @@ export function activate(context: vscode.ExtensionContext): void {
   });
 
   context.subscriptions.push(command);
+}
+
+function summarizeFindings(findings: Record<string, number>): { summary: string; total: number } {
+  const labels: Record<string, string> = {
+    emails: "email",
+    urls: "URL",
+    ipv4: "IP",
+    ips: "IP",
+    awsKeys: "AWS key",
+    secrets: "secret",
+    names: "name"
+  };
+
+  const parts: string[] = [];
+  let total = 0;
+
+  for (const [key, count] of Object.entries(findings)) {
+    if (!count) {
+      continue;
+    }
+
+    total += count;
+
+    const label = labels[key] ?? key;
+    const pluralized =
+      count === 1 || label === "IP" ? label : `${label}s`;
+
+    parts.push(`${count} ${pluralized}`);
+  }
+
+  return {
+    summary: parts.length > 0 ? parts.join(", ") : "No sensitive patterns found.",
+    total
+  };
 }
 
 export function deactivate(): void {}
