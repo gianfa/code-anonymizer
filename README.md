@@ -1,4 +1,4 @@
-# code-anonymizer
+# RedActor
 
 A lightweight TypeScript library to quickly anonymize sensitive data in code snippets or logs.
 
