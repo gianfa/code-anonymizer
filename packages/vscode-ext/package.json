@@ -1,5 +1,5 @@
 {
-  "name": "redact-vscode",
+  "name": "redactor-vscode",
   "version": "0.1.0",
   "main": "dist/extension.js",
   "private": false,
@@ -7,61 +7,61 @@
     "vscode": "^1.90.0"
   },
   "activationEvents": [
-    "onCommand:redact.anonymize",
-    "onCommand:redact.diff"
+    "onCommand:redactor.anonymize",
+    "onCommand:redactor.diff"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "redact.anonymize",
+        "command": "redactor.anonymize",
         "title": "Anonymize Code"
       },
       {
-        "command": "redact.diff",
+        "command": "redactor.diff",
         "title": "Anonymize Code (Preview Diff)"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "redact.anonymize",
+          "command": "redactor.anonymize",
           "group": "navigation"
         },
         {
-          "command": "redact.diff",
+          "command": "redactor.diff",
           "group": "navigation"
         }
       ]
     },
     "configuration": {
-      "title": "RedAct",
+      "title": "RedActor",
       "properties": {
-        "redAct.enableEmails": {
+        "redActor.enableEmails": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace email addresses."
         },
-        "redAct.enableUrls": {
+        "redActor.enableUrls": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace URLs."
         },
-        "redAct.enableIps": {
+        "redActor.enableIps": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace IP addresses."
         },
-        "redAct.enableSecrets": {
+        "redActor.enableSecrets": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace secrets."
         },
-        "redAct.enableNames": {
+        "redActor.enableNames": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace human names."
         },
-        "redAct.customPatterns": {
+        "redActor.customPatterns": {
           "type": "array",
           "default": [],
           "description": "Custom regex replacement rules.",
@@ -85,17 +85,17 @@
             ]
           }
         },
-        "redAct.openInNewTab": {
+        "redActor.openInNewTab": {
           "type": "boolean",
           "default": true,
           "description": "Open anonymized output in a new editor tab."
         },
-        "redAct.highlight.enabled": {
+        "redActor.highlight.enabled": {
           "type": "boolean",
           "default": true,
           "description": "Enable inline highlight of anonymized values."
         },
-        "redAct.highlight.color": {
+        "redActor.highlight.color": {
           "type": "string",
           "default": "rgba(0, 255, 0, 0.15)",
           "description": "Background color for anonymized highlights."
@@ -117,6 +117,6 @@
     "tsup": "^8.5.0",
     "typescript": "^5.9.3"
   },
-  "displayName": "RedAct",
-  "description": "RedAct: anonymize sensitive code snippets before sharing."
+  "displayName": "RedActor",
+  "description": "RedActor: anonymize sensitive code snippets before sharing."
 }
