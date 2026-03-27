@@ -6,6 +6,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "develop"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
@@ -18,6 +19,7 @@ updates:
     directory: "/packages/core"
     schedule:
       interval: "daily"
+    target-branch: "develop"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps(core)"
@@ -27,6 +29,7 @@ updates:
     directory: "/packages/vscode-ext"
     schedule:
       interval: "daily"
+    target-branch: "develop"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps(ext)"
@@ -36,3 +39,4 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "develop"
