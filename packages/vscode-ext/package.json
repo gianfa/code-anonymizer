@@ -1,5 +1,5 @@
 {
-  "name": "redactor-vscode",
+  "name": "@redactor/vscode",
   "version": "0.1.0",
   "main": "dist/extension.js",
   "private": false,
@@ -104,13 +104,13 @@
     }
   },
   "scripts": {
-    "build": "tsup src/extension.ts --format cjs --external vscode",
+    "build": "tsup src/extension.ts --format cjs --external vscode,@redactor/core",
     "dev": "tsup src/extension.ts --watch --format cjs --external vscode",
     "typecheck": "pnpm --filter @code-anonymizer/core build && tsc --noEmit -p tsconfig.json",
     "lint": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@code-anonymizer/core": "workspace:*"
+     "@redactor/core": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.90.0",

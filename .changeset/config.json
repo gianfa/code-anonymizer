@@ -1,0 +1,5 @@
+{
+  "linked": [
+    ["@redactor/core", "@redactor/vscode"]
+  ]
+}

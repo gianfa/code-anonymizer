@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
-const NAMES_FILE_URL = new URL("../data/names.txt", import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const NAMES_FILE_PATH = join(__dirname, "../data/names.txt");
 
 const BLACKLIST = new Set([
   "admin",
@@ -32,7 +37,7 @@ function normalizeToken(value: string): string {
 function loadNames(): Set<string> {
   if (cachedNames) return cachedNames;
 
-  const raw = readFileSync(NAMES_FILE_URL, "utf8");
+  const raw = readFileSync(NAMES_FILE_PATH, "utf8");
   cachedNames = new Set(
     raw
       .split("\n")

@@ -1,30 +1,25 @@
 {
-  "name": "@code-anonymizer/core",
+  "name": "@redactor/core",
   "version": "0.1.0",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": "./dist/index.cjs"
     }
   },
   "bin": {
-    "anonymize": "dist/cli.js"
+    "redactor": "dist/cli.cjs"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
-    "build": "tsup src/index.ts src/cli.ts --format esm --dts",
+    "build": "tsup src/index.ts src/cli.ts --format esm,cjs --dts --splitting false",
     "dev": "tsc -w -p tsconfig.json",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3"
   }
 }

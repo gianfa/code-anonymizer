@@ -1,5 +1,5 @@
 {
-  "name": "redactor",
+  "name": "redactor-monorepo",
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
@@ -16,11 +16,25 @@
     "check:build": "pnpm build && pnpm test && pnpm build:ext"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "eslint": "^10.1.0",
     "tsx": "^4.21.0",
     "vitest": "^3.2.4"
-  }
+  },
+  "version": "1.0.0",
+  "description": "A lightweight TypeScript library to quickly anonymize sensitive data in code snippets or logs.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "eslint-scope": "^9.1.2",
+    "eslint-visitor-keys": "^5.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
