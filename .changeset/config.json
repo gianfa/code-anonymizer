@@ -3,11 +3,9 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [
-    ["@redactor/core", "redactor"]
-  ],
+  "linked": [],
   "access": "public",
-  "baseBranch": "develop",
+  "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": []
 }
