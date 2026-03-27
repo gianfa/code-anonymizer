@@ -15,7 +15,7 @@
   },
   "publisher": "PLACEHOLDER",
   "main": "./dist/extension.js",
-  "private": false,
+  "private": true,
   "engines": {
     "vscode": "^1.90.0"
   },
