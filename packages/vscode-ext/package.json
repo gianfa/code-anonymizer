@@ -106,7 +106,7 @@
   "scripts": {
     "build": "tsup src/extension.ts --format cjs --external vscode,@redactor/core",
     "dev": "tsup src/extension.ts --watch --format cjs --external vscode",
-    "typecheck": "pnpm --filter @code-anonymizer/core build && tsc --noEmit -p tsconfig.json",
+    "typecheck": "pnpm --filter @redactor/core build && tsc --noEmit -p tsconfig.json",
     "lint": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {

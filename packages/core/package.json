@@ -1,25 +1,23 @@
 {
   "name": "@redactor/core",
   "version": "0.1.0",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js"
     }
   },
   "bin": {
-    "redactor": "dist/cli.cjs"
+    "redactor": "dist/cli.js"
   },
   "files": ["dist"],
   "scripts": {
-    "build": "tsup src/index.ts src/cli.ts --format esm,cjs --dts --splitting false",
-    "dev": "tsc -w -p tsconfig.json",
-    "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "build": "../vscode-ext/node_modules/.bin/tsup src/index.ts src/cli.ts --format cjs --dts --splitting false",
+    "dev": "../vscode-ext/node_modules/.bin/tsc -w -p tsconfig.json",
+    "typecheck": "../vscode-ext/node_modules/.bin/tsc --noEmit",
+    "lint": "../vscode-ext/node_modules/.bin/tsc --noEmit"
   }
 }

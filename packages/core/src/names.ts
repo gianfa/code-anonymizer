@@ -1,11 +1,9 @@
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const NAMES_BASE_DIR = dirname(__filename);
 
-const NAMES_FILE_PATH = join(__dirname, "../data/names.txt");
+const NAMES_FILE_PATH = join(NAMES_BASE_DIR, "../data/names.txt");
 
 const BLACKLIST = new Set([
   "admin",
