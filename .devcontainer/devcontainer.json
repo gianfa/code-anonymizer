@@ -1,0 +1,31 @@
+{
+  "name": "code-anonymizer-dev",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "github.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "files.eol": "\n",
+        "js/ts.tsdk.path": "node_modules/typescript/lib"
+      }
+    }
+  },
+  "postCreateCommand": "corepack enable && pnpm install",
+  "postStartCommand": "node -v && pnpm -v",
+  "features": {}
+}

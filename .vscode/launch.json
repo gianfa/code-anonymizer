@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "preLaunchTask": "build:vscode-ext",
+      "args": [
+        "--new-window",
+        "--profile=ExtensionDev",
+        "--disable-extension=GitHub.copilot",
+        "--disable-extension=GitHub.copilot-chat",
+        "--extensionDevelopmentPath=/workspaces/code-anonymizer/packages/vscode-ext",
+        "/workspaces/code-anonymizer/testing"
+      ],
+      "outFiles": ["${workspaceFolder}/packages/vscode-ext/dist/**/*.js"]
+    }
+  ]
+}
