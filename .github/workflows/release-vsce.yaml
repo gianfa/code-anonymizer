@@ -1,0 +1,57 @@
+name: Release VSCode
+
+on:
+  repository_dispatch:
+    types: [release-vsce]
+
+  push:
+    branches: [main]
+    paths:
+      - "packages/vscode-ext/**"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: pnpm install --frozen-lockfile
+
+      # decide versione dinamicamente
+      - name: Compute version
+        id: version
+        run: |
+          CORE=$(node -p "require('./packages/core/package.json').version")
+          CURRENT=$(node -p "require('./packages/vscode-ext/package.json').version")
+
+          if [ "$GITHUB_EVENT_NAME" = "repository_dispatch" ]; then
+            # triggered da core → sync
+            echo "version=$CORE" >> $GITHUB_OUTPUT
+          else
+            # triggered da vscode → patch bump
+            NEXT=$(npm version patch --no-git-tag-version)
+            echo "version=$NEXT" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Apply version
+        run: |
+          cd packages/vscode-ext
+          npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+      - run: pnpm --filter redactor build
+
+      - run: pnpm --filter redactor exec vsce publish --pat $VSCE_PAT
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
