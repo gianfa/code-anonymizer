@@ -13,7 +13,7 @@
     "scan:deps": "osv-scanner scan -L pnpm-lock.yaml",
     "scan": "pnpm scan:deps && pnpm scan:secrets",
     "release": "changeset publish",
-    "release:core": "npm publish -w @gianfa/redactor-core --access public",
+    "release:core": "npm publish ./packages/core --access public",
     "check:build": "pnpm build && pnpm test && pnpm build:ext"
   },
   "devDependencies": {
