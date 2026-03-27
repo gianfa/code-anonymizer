@@ -3,8 +3,17 @@
   "displayName": "RedActor",
   "description": "Anonymize sensitive code snippets before sharing.",
   "version": "0.1.0",
-  "publisher": "PLACEHOLDER",
+  "author": "Gianfrancesco Angelini",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gianfa/code-anonymizer"
+  },
+  "homepage": "https://github.com/gianfa/code-anonymizer",
+  "bugs": {
+    "url": "https://github.com/gianfa/code-anonymizer/issues"
+  },
+  "publisher": "PLACEHOLDER",
   "main": "./dist/extension.js",
   "private": false,
   "engines": {
