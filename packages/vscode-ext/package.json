@@ -120,14 +120,14 @@
     }
   },
   "scripts": {
-    "build": "tsup src/extension.ts --format cjs --external vscode,@redactor/core",
-    "dev": "tsup src/extension.ts --watch --format cjs --external vscode,@redactor/core",
-    "typecheck": "pnpm --filter @redactor/core build && tsc --noEmit -p tsconfig.json",
+    "build": "tsup src/extension.ts --format cjs --external vscode,@gianfa/redactor-core",
+    "dev": "tsup src/extension.ts --watch --format cjs --external vscode,@gianfa/redactor-core",
+    "typecheck": "pnpm --filter @gianfa/redactor-core build && tsc --noEmit -p tsconfig.json",
     "lint": "tsc --noEmit -p tsconfig.json",
     "package:vsix": "vsce package"
   },
   "dependencies": {
-    "@redactor/core": "workspace:*"
+    "@gianfa/redactor-core": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.110.0",

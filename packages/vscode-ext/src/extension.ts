@@ -3,7 +3,7 @@ import {
   anonymize,
   parseAnonymizations,
   type CustomAnonymization
-} from "@redactor/core";
+} from "@gianfa/redactor-core";
 
 type CustomPatternConfig = {
   name: string;
