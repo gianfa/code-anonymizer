@@ -123,7 +123,7 @@ function computeHighlightRangesFromFinalCode(
 }
 
 function createDecorationType(): vscode.TextEditorDecorationType {
-  const config = vscode.workspace.getConfiguration("codeAnonymizer");
+  const config = vscode.workspace.getConfiguration("redAct");
   const highlightEnabled = config.get<boolean>("highlight.enabled", true);
   const highlightColor = config.get<string>("highlight.color", "rgba(0, 255, 0, 0.15)");
 
@@ -180,7 +180,7 @@ export function activate(context: vscode.ExtensionContext): void {
   });
 
   const anonymizeCommand = vscode.commands.registerCommand(
-    "code-anonymizer.anonymize",
+    "redact.anonymize",
     async () => {
       const sourceEditor = vscode.window.activeTextEditor;
 
@@ -189,7 +189,7 @@ export function activate(context: vscode.ExtensionContext): void {
         return;
       }
 
-      const config = vscode.workspace.getConfiguration("codeAnonymizer");
+      const config = vscode.workspace.getConfiguration("redAct");
 
       const customPatterns = config.get<CustomPatternConfig[]>("customPatterns", []);
       const { customAnonymizations, invalidPatternNames } =
@@ -272,7 +272,7 @@ export function activate(context: vscode.ExtensionContext): void {
   );
 
   const diffCommand = vscode.commands.registerCommand(
-    "code-anonymizer.diff",
+    "redact.diff",
     async () => {
       const editor = vscode.window.activeTextEditor;
 
@@ -281,7 +281,7 @@ export function activate(context: vscode.ExtensionContext): void {
         return;
       }
 
-      const config = vscode.workspace.getConfiguration("codeAnonymizer");
+      const config = vscode.workspace.getConfiguration("redAct");
 
       const customPatterns = config.get<CustomPatternConfig[]>("customPatterns", []);
       const { customAnonymizations, invalidPatternNames } =

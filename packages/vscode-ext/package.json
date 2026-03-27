@@ -1,5 +1,5 @@
 {
-  "name": "code-anonymizer-vscode",
+  "name": "redact-vscode",
   "version": "0.1.0",
   "main": "dist/extension.js",
   "private": false,
@@ -7,61 +7,61 @@
     "vscode": "^1.90.0"
   },
   "activationEvents": [
-    "onCommand:code-anonymizer.anonymize",
-    "onCommand:code-anonymizer.diff"
+    "onCommand:redact.anonymize",
+    "onCommand:redact.diff"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "code-anonymizer.anonymize",
-        "title": "Anonymize"
+        "command": "redact.anonymize",
+        "title": "Anonymize Code"
       },
       {
-        "command": "code-anonymizer.diff",
-        "title": "Anonymize (Preview Diff)"
+        "command": "redact.diff",
+        "title": "Anonymize Code (Preview Diff)"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "code-anonymizer.anonymize",
+          "command": "redact.anonymize",
           "group": "navigation"
         },
         {
-          "command": "code-anonymizer.diff",
+          "command": "redact.diff",
           "group": "navigation"
         }
       ]
     },
     "configuration": {
-      "title": "Code Anonymizer",
+      "title": "RedAct",
       "properties": {
-        "codeAnonymizer.enableEmails": {
+        "redAct.enableEmails": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace email addresses."
         },
-        "codeAnonymizer.enableUrls": {
+        "redAct.enableUrls": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace URLs."
         },
-        "codeAnonymizer.enableIps": {
+        "redAct.enableIps": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace IP addresses."
         },
-        "codeAnonymizer.enableSecrets": {
+        "redAct.enableSecrets": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace secrets."
         },
-        "codeAnonymizer.enableNames": {
+        "redAct.enableNames": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace human names."
         },
-        "codeAnonymizer.customPatterns": {
+        "redAct.customPatterns": {
           "type": "array",
           "default": [],
           "description": "Custom regex replacement rules.",
@@ -78,20 +78,24 @@
                 "type": "string"
               }
             },
-            "required": ["name", "regex", "replace"]
+            "required": [
+              "name",
+              "regex",
+              "replace"
+            ]
           }
         },
-        "codeAnonymizer.openInNewTab": {
+        "redAct.openInNewTab": {
           "type": "boolean",
           "default": true,
           "description": "Open anonymized output in a new editor tab."
         },
-        "codeAnonymizer.highlight.enabled": {
+        "redAct.highlight.enabled": {
           "type": "boolean",
           "default": true,
           "description": "Enable inline highlight of anonymized values."
         },
-        "codeAnonymizer.highlight.color": {
+        "redAct.highlight.color": {
           "type": "string",
           "default": "rgba(0, 255, 0, 0.15)",
           "description": "Background color for anonymized highlights."
@@ -112,5 +116,7 @@
     "@types/vscode": "^1.90.0",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3"
-  }
+  },
+  "displayName": "RedAct",
+  "description": "RedAct: anonymize sensitive code snippets before sharing."
 }
