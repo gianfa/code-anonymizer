@@ -1,5 +1,11 @@
 # @redactor/core
 
+## 0.1.2
+
+### Patch Changes
+
+- 1b07335: Improve redactor-core README
+
 ## 0.1.1
 
 ### Patch Changes
