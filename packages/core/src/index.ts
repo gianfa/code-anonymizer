@@ -50,6 +50,33 @@ const URL_REGEX = /\bhttps?:\/\/[^\s"']+/gi;
 const IP_REGEX = /\b\d{1,3}(?:\.\d{1,3}){3}\b/g;
 const AWS_KEY_REGEX = /\bAKIA[0-9A-Z]{16}\b/g;
 
+function computeNameSpans(
+  before: string,
+  after: string,
+  map: Record<string, string>
+): AnonymizedSpan[] {
+  const spans: AnonymizedSpan[] = [];
+
+  for (const replacement of Object.values(map)) {
+    if (!replacement.startsWith("PERSON_")) continue;
+
+    const regex = new RegExp(`\\b${replacement}\\b`, "g");
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(after)) !== null) {
+      spans.push({
+        start: match.index,
+        end: match.index + replacement.length,
+        kind: "names",
+        original: "",
+        replacement
+      });
+    }
+  }
+
+  return spans;
+}
+
 export function anonymize(input: string, options: AnonymizeOptions = {}): AnonymizeResult {
   const map: Record<string, string> = {};
   const enableEmails = options.enableEmails ?? true;
@@ -120,9 +147,14 @@ export function anonymize(input: string, options: AnonymizeOptions = {}): Anonym
   let code = partiallyAnonymizedCode;
 
   if (enableNames) {
+    const before = code;
+
     const nameResult = replaceHumanNamesInText(code, map);
     code = nameResult.text;
     nameCount = nameResult.replacements;
+
+    const nameSpans = computeNameSpans(before, code, map);
+    spans.push(...nameSpans);
   }
 
   return {

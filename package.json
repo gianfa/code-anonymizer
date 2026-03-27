@@ -4,99 +4,23 @@
   "packageManager": "pnpm@9.0.0",
   "scripts": {
     "build": "pnpm -r build",
+    "build:ext": "pnpm --filter code-anonymizer-vscode build",
     "dev": "pnpm -r dev",
     "typecheck": "pnpm -r typecheck",
-    "lint": "pnpm -r --if-present lint",
+    "lint": "eslint . && pnpm -r --if-present lint",
     "test": "vitest run",
     "scan:secrets": "gitleaks git . --log-opts='-1'",
     "scan:deps": "osv-scanner scan -L pnpm-lock.yaml",
-    "scan": "pnpm scan:deps && pnpm scan:secrets"
+    "scan": "pnpm scan:deps && pnpm scan:secrets",
+    "release": "changeset publish",
+    "check:build": "pnpm build && pnpm test && pnpm build:ext"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "eslint": "^10.1.0",
     "tsx": "^4.21.0",
     "vitest": "^3.2.4"
-  },
-  "contributes": {
-    "commands": [
-      {
-        "command": "code-anonymizer.anonymize",
-        "title": "Anonymize"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "command": "code-anonymizer.anonymize",
-          "group": "navigation"
-        }
-      ]
-    },
-    "configuration": {
-      "title": "Code Anonymizer",
-      "properties": {
-        "codeAnonymizer.enableEmails": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect and replace email addresses."
-        },
-        "codeAnonymizer.enableUrls": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect and replace URLs."
-        },
-        "codeAnonymizer.enableIps": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect and replace IP addresses."
-        },
-        "codeAnonymizer.enableSecrets": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect and replace secrets."
-        },
-        "codeAnonymizer.enableNames": {
-          "type": "boolean",
-          "default": false,
-          "description": "Detect and replace human names."
-        },
-        "codeAnonymizer.customPatterns": {
-          "type": "array",
-          "default": [],
-          "description": "Custom regex replacement rules.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "regex": {
-                "type": "string"
-              },
-              "replace": {
-                "type": "string"
-              }
-            },
-            "required": ["name", "regex", "replace"]
-          }
-        },
-        "codeAnonymizer.openInNewTab": {
-          "type": "boolean",
-          "default": true,
-          "description": "Open anonymized output in a new editor tab."
-        }
-      },
-      "codeAnonymizer.highlight.enabled": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable inline highlight of anonymized values"
-      },
-      "codeAnonymizer.highlight.color": {
-        "type": "string",
-        "default": "rgba(0, 255, 0, 0.15)",
-        "description": "Background color for anonymized highlights"
-      }
-    }
   }
 }

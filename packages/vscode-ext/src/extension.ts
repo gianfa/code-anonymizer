@@ -176,7 +176,7 @@ export function activate(context: vscode.ExtensionContext): void {
         enableUrls: config.get<boolean>("enableUrls", true),
         enableIps: config.get<boolean>("enableIps", true),
         enableSecrets: config.get<boolean>("enableSecrets", true),
-        enableNames: config.get<boolean>("enableNames", false),
+        enableNames: config.get<boolean>("enableNames", true),
         customAnonymizations
       };
 
