@@ -1,11 +1,16 @@
 {
-  "name": "redactor-vscode",
+  "name": "redactor",
+  "displayName": "RedActor",
+  "description": "Anonymize sensitive code snippets before sharing.",
   "version": "0.1.0",
-  "main": "dist/extension.js",
+  "publisher": "PLACEHOLDER",
+  "license": "MIT",
+  "main": "./dist/extension.js",
   "private": false,
   "engines": {
     "vscode": "^1.90.0"
   },
+  "categories": ["Other"],
   "activationEvents": [
     "onCommand:redactor.anonymize",
     "onCommand:redactor.diff"
@@ -36,32 +41,32 @@
     "configuration": {
       "title": "RedActor",
       "properties": {
-        "redActor.enableEmails": {
+        "redactor.enableEmails": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace email addresses."
         },
-        "redActor.enableUrls": {
+        "redactor.enableUrls": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace URLs."
         },
-        "redActor.enableIps": {
+        "redactor.enableIps": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace IP addresses."
         },
-        "redActor.enableSecrets": {
+        "redactor.enableSecrets": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace secrets."
         },
-        "redActor.enableNames": {
+        "redactor.enableNames": {
           "type": "boolean",
           "default": true,
           "description": "Detect and replace human names."
         },
-        "redActor.customPatterns": {
+        "redactor.customPatterns": {
           "type": "array",
           "default": [],
           "description": "Custom regex replacement rules.",
@@ -78,24 +83,20 @@
                 "type": "string"
               }
             },
-            "required": [
-              "name",
-              "regex",
-              "replace"
-            ]
+            "required": ["name", "regex", "replace"]
           }
         },
-        "redActor.openInNewTab": {
+        "redactor.openInNewTab": {
           "type": "boolean",
           "default": true,
           "description": "Open anonymized output in a new editor tab."
         },
-        "redActor.highlight.enabled": {
+        "redactor.highlight.enabled": {
           "type": "boolean",
           "default": true,
           "description": "Enable inline highlight of anonymized values."
         },
-        "redActor.highlight.color": {
+        "redactor.highlight.color": {
           "type": "string",
           "default": "rgba(0, 255, 0, 0.15)",
           "description": "Background color for anonymized highlights."
@@ -104,19 +105,19 @@
     }
   },
   "scripts": {
-    "build": "tsup src/extension.ts --format cjs --external vscode",
-    "dev": "tsup src/extension.ts --watch --format cjs --external vscode",
-    "typecheck": "pnpm --filter @code-anonymizer/core build && tsc --noEmit -p tsconfig.json",
-    "lint": "tsc --noEmit -p tsconfig.json"
+    "build": "tsup src/extension.ts --format cjs --external vscode,@redactor/core",
+    "dev": "tsup src/extension.ts --watch --format cjs --external vscode,@redactor/core",
+    "typecheck": "pnpm --filter @redactor/core build && tsc --noEmit -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "package:vsix": "vsce package"
   },
   "dependencies": {
-    "@code-anonymizer/core": "workspace:*"
+    "@redactor/core": "workspace:*"
   },
   "devDependencies": {
-    "@types/vscode": "^1.90.0",
-    "tsup": "^8.5.0",
+    "@types/vscode": "^1.110.0",
+    "@vscode/vsce": "3.7.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
-  },
-  "displayName": "RedActor",
-  "description": "RedActor: anonymize sensitive code snippets before sharing."
+  }
 }

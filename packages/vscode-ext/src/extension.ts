@@ -3,7 +3,7 @@ import {
   anonymize,
   parseAnonymizations,
   type CustomAnonymization
-} from "@code-anonymizer/core";
+} from "@redactor/core";
 
 type CustomPatternConfig = {
   name: string;
