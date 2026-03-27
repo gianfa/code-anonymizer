@@ -1,5 +1,7 @@
 # @gianfa/redactor-core
 
+<img src="https://github.com/gianfa/code-anonymizer/blob/develop/assets/logo/logo-1.png?raw=true" width='600px'>
+
 Ship logs, snippets, and demos fast — **without leaking real data**.
 
 `@gianfa/redactor-core` anonymizes sensitive text in one call.
@@ -56,7 +58,7 @@ const result = anonymize("Marco uses marco@startup.it", {
   enableEmails: true,
   enableUrls: false,
   enableIps: false,
-  enableSecrets: false
+  enableSecrets: false,
 });
 ```
 
@@ -77,11 +79,11 @@ Need project-specific masking? Add your own rules.
 import { anonymize, parseAnonymizations } from "@gianfa/redactor-core";
 
 const customAnonymizations = parseAnonymizations({
-  "/\\b\\w*identity\\w*-\\d{3}\\b/g": "my-identity"
+  "/\\b\\w*identity\\w*-\\d{3}\\b/g": "my-identity",
 });
 
 const result = anonymize('const id = "customer-identity-123";', {
-  customAnonymizations
+  customAnonymizations,
 });
 ```
 
