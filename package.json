@@ -23,7 +23,7 @@
     "@vscode/vsce": "3.7.1",
     "eslint": "^10.1.0",
     "tsx": "^4.21.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.2"
   },
   "version": "1.0.0",
   "description": "A lightweight TypeScript library to quickly anonymize sensitive data in code snippets or logs.",
