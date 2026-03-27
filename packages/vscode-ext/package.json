@@ -2,7 +2,7 @@
   "name": "redactor",
   "displayName": "RedActor",
   "description": "Anonymize sensitive code snippets before sharing.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Gianfrancesco Angelini",
   "license": "MIT",
   "repository": {
@@ -19,7 +19,9 @@
   "engines": {
     "vscode": "^1.90.0"
   },
-  "categories": ["Other"],
+  "categories": [
+    "Other"
+  ],
   "activationEvents": [
     "onCommand:redactor.anonymize",
     "onCommand:redactor.diff"
@@ -92,7 +94,11 @@
                 "type": "string"
               }
             },
-            "required": ["name", "regex", "replace"]
+            "required": [
+              "name",
+              "regex",
+              "replace"
+            ]
           }
         },
         "redactor.openInNewTab": {
