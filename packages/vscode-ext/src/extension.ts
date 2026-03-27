@@ -43,35 +43,6 @@ function summarizeFindings(findings: Record<string, number>): { summary: string;
   };
 }
 
-function computeChangedLineRanges(
-  originalText: string,
-  anonymizedText: string,
-  targetDocument: vscode.TextDocument
-): vscode.Range[] {
-  const originalLines = originalText.split("\n");
-  const anonymizedLines = anonymizedText.split("\n");
-  const maxLines = Math.max(originalLines.length, anonymizedLines.length);
-
-  const ranges: vscode.Range[] = [];
-
-  if (targetDocument.lineCount === 0) {
-    return ranges;
-  }
-
-  for (let i = 0; i < maxLines; i++) {
-    const originalLine = originalLines[i] ?? "";
-    const anonymizedLine = anonymizedLines[i] ?? "";
-
-    if (originalLine !== anonymizedLine) {
-      const lineIndex = Math.min(i, targetDocument.lineCount - 1);
-      const line = targetDocument.lineAt(lineIndex);
-      ranges.push(new vscode.Range(line.range.start, line.range.end));
-    }
-  }
-
-  return ranges;
-}
-
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -123,7 +94,7 @@ function computeHighlightRangesFromFinalCode(
 }
 
 function createDecorationType(): vscode.TextEditorDecorationType {
-  const config = vscode.workspace.getConfiguration("redActor");
+  const config = vscode.workspace.getConfiguration("redactor");
   const highlightEnabled = config.get<boolean>("highlight.enabled", true);
   const highlightColor = config.get<string>("highlight.color", "rgba(0, 255, 0, 0.15)");
 
@@ -189,7 +160,7 @@ export function activate(context: vscode.ExtensionContext): void {
         return;
       }
 
-      const config = vscode.workspace.getConfiguration("redActor");
+      const config = vscode.workspace.getConfiguration("redactor");
 
       const customPatterns = config.get<CustomPatternConfig[]>("customPatterns", []);
       const { customAnonymizations, invalidPatternNames } =
@@ -281,7 +252,7 @@ export function activate(context: vscode.ExtensionContext): void {
         return;
       }
 
-      const config = vscode.workspace.getConfiguration("redActor");
+      const config = vscode.workspace.getConfiguration("redactor");
 
       const customPatterns = config.get<CustomPatternConfig[]>("customPatterns", []);
       const { customAnonymizations, invalidPatternNames } =
