@@ -114,13 +114,13 @@ pnpm build
 ### Core package
 
 ```bash
-pnpm add @code-anonymizer/core
+pnpm add @gianfa/redactor-core
 ```
 
 ## ⚙️ Usage
 
 ```ts
-import { anonymize } from "@code-anonymizer/core";
+import { anonymize } from "@gianfa/redactor-core";
 
 const result = anonymize(code);
 
