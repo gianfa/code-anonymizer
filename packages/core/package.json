@@ -1,6 +1,6 @@
 {
   "name": "@redactor/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -13,7 +13,10 @@
   "bin": {
     "redactor": "dist/cli.js"
   },
-  "files": ["dist", "data"],
+  "files": [
+    "dist",
+    "data"
+  ],
   "publishConfig": {
     "access": "public"
   },
