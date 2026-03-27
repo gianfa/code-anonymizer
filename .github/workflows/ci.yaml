@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [feature/pipeline, develop]
+    branches: [develop, fix/highlight]
 
 jobs:
   ci:

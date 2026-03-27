@@ -11,11 +11,6 @@ type CustomPatternConfig = {
   replace: string;
 };
 
-type AnonymizedSpan = {
-  start: number;
-  end: number;
-};
-
 function summarizeFindings(findings: Record<string, number>): { summary: string; total: number } {
   const labels: Record<string, string> = {
     emails: "email",
@@ -77,19 +72,54 @@ function computeChangedLineRanges(
   return ranges;
 }
 
-function computeSpanRanges(
-  spans: AnonymizedSpan[],
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function computeHighlightRangesFromFinalCode(
+  text: string,
+  findings: Record<string, number>,
   targetDocument: vscode.TextDocument
 ): vscode.Range[] {
-  const textLength = targetDocument.getText().length;
+  const patterns: RegExp[] = [];
 
-  return spans
-    .filter((span) => span.start >= 0 && span.end >= span.start && span.end <= textLength)
-    .map((span) => {
-      const start = targetDocument.positionAt(span.start);
-      const end = targetDocument.positionAt(span.end);
-      return new vscode.Range(start, end);
-    });
+  if (findings.names > 0) {
+    patterns.push(/\bPERSON_\d+\b/g);
+  }
+
+  if (findings.secrets > 0) {
+    patterns.push(/\bSECRET_\d+\b/g);
+  }
+
+  if (findings.emails > 0) {
+    patterns.push(new RegExp(escapeRegExp("user@email.com"), "g"));
+  }
+
+  if (findings.urls > 0) {
+    patterns.push(new RegExp(escapeRegExp("https://example.com"), "g"));
+  }
+
+  if (findings.ips > 0) {
+    patterns.push(new RegExp(escapeRegExp("0.0.0.0"), "g"));
+  }
+
+  const ranges: vscode.Range[] = [];
+
+  for (const pattern of patterns) {
+    let match: RegExpExecArray | null;
+
+    while ((match = pattern.exec(text)) !== null) {
+      const start = targetDocument.positionAt(match.index);
+      const end = targetDocument.positionAt(match.index + match[0].length);
+      ranges.push(new vscode.Range(start, end));
+
+      if (match[0].length === 0) {
+        pattern.lastIndex += 1;
+      }
+    }
+  }
+
+  return ranges;
 }
 
 function createDecorationType(): vscode.TextEditorDecorationType {
@@ -184,7 +214,7 @@ export function activate(context: vscode.ExtensionContext): void {
       const highlightEnabled = config.get<boolean>("highlight.enabled", true);
 
       const originalCode = sourceEditor.document.getText();
-      const { code, findings, spans = [] } = anonymize(originalCode, options);
+      const { code, findings } = anonymize(originalCode, options);
       const { summary, total } = summarizeFindings(findings);
 
       if (total === 0) {
@@ -210,12 +240,7 @@ export function activate(context: vscode.ExtensionContext): void {
         });
 
         if (highlightEnabled) {
-          const preciseRanges = computeSpanRanges(spans, targetDocument);
-          const ranges =
-            preciseRanges.length > 0
-              ? preciseRanges
-              : computeChangedLineRanges(originalCode, code, targetDocument);
-
+          const ranges = computeHighlightRangesFromFinalCode(code, findings, targetDocument);
           targetEditor.setDecorations(decorationType, ranges);
         }
 
@@ -235,12 +260,11 @@ export function activate(context: vscode.ExtensionContext): void {
         const updatedEditor = vscode.window.activeTextEditor;
 
         if (updatedEditor && updatedEditor.document === sourceEditor.document) {
-          const preciseRanges = computeSpanRanges(spans, updatedEditor.document);
-          const ranges =
-            preciseRanges.length > 0
-              ? preciseRanges
-              : computeChangedLineRanges(originalCode, code, updatedEditor.document);
-
+          const ranges = computeHighlightRangesFromFinalCode(
+            code,
+            findings,
+            updatedEditor.document
+          );
           updatedEditor.setDecorations(decorationType, ranges);
         }
       }
