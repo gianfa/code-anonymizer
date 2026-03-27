@@ -1,92 +1,172 @@
 # RedActor
 
-A lightweight TypeScript library to quickly anonymize sensitive data in code snippets or logs.
+> Anonymize code before sharing or using AI.
 
-It currently replaces:
+Automatically detect and remove sensitive data from your code, logs, and prompts — locally, with zero setup.
+
+## 🚀 Why RedActor
+
+Developers constantly copy/paste code into:
+
+- AI tools (Copilot, ChatGPT)
+- GitHub issues / PRs
+- StackOverflow / Slack
+
+👉 This often leaks:
+
+- API keys
+- internal URLs
 - emails
-- URLs
-- IPv4 addresses
-- AWS Access Key IDs (`AKIA...`)
+- IPs
 
-## Installation
+**RedActor prevents that — instantly.**
 
-### Monorepo (local development)
-```bash
-pnpm install
-pnpm build
-```
+## ⚡ What it does
 
-### Install core package
-```bash
-pnpm add @code-anonymizer/core
-```
+RedActor automatically anonymizes:
 
-## Quick usage
+- Emails → `user@email.com`
+- URLs → `https://example.com`
+- IP addresses → `0.0.0.0`
+- AWS keys → `SECRET_1`
+- **Your custom patterns → fully configurable**
+
+Runs **fully local**. No data leaves your machine.
+
+## 🧠 Example
+
+### Input
 
 ```ts
-import { anonymize } from "@code-anonymizer/core";
-
-const input = `
 const email = "dev@company.com";
 const api = "https://intranet.local";
 const ip = "10.0.0.12";
 const aws = "AKIA1234567890ABCDEF";
-`;
-
-const result = anonymize(input);
-
-console.log(result.code);
-console.log(result.findings);
-console.log(result.map);
 ```
 
-Typical output:
+### Output
 
-```txt
+```ts
 const email = "user@email.com";
 const api = "https://example.com";
 const ip = "0.0.0.0";
 const aws = "SECRET_1";
 ```
 
-## CLI
+## 🔧 Custom patterns (power feature)
 
-After building the core package:
+Define your own anonymization rules using regex.
 
-```bash
-pnpm --filter @code-anonymizer/core build
-node packages/core/dist/cli.js ./input.txt
-```
-
-Anonymized code is printed to `stdout`, while the findings summary is printed to `stderr`.
-
-### Custom anonymizations from JSON
-
-You can pass a JSON file that maps JavaScript regex literals (as keys) to replacements (as values):
+### Replace internal IDs
 
 ```json
 {
-  "/\\b\\w*identity\\w*-\\d{3}\\b/g": "my-identity"
+  "/user_[0-9]+/g": "user_XXX"
 }
 ```
 
-Use either:
+Example:  
+`const id = "user_12345";` → `const id = "user_XXX";`
+
+### Mask company domains
+
+```json
+{
+  "/https:\\/\\/.*\\.internal/g": "https://example.com"
+}
+```
+
+Example:  
+`const api = "https://payments.internal";` → `const api = "https://example.com";`
+
+### Replace tokens
+
+```json
+{
+  "/token_[a-zA-Z0-9]+/g": "TOKEN"
+}
+```
+
+Example:  
+`const token = "token_abC123XYZ";` → `const token = "TOKEN";`
+
+👉 Adapt RedActor to your company rules or any custom format.
+
+## 🧩 VSCode Extension
+
+Use RedActor directly in VSCode:
+
+- Command: **Anonymize Code**
+- Works instantly on your file
+- Opens anonymized version side-by-side
+
+## 📦 Installation
+
+### Monorepo (local dev)
+
+```bash
+pnpm install
+pnpm build
+```
+
+### Core package
+
+```bash
+pnpm add @code-anonymizer/core
+```
+
+## ⚙️ Usage
+
+```ts
+import { anonymize } from "@code-anonymizer/core";
+
+const result = anonymize(code);
+
+console.log(result.code);
+console.log(result.findings);
+console.log(result.map);
+```
+
+## 🖥 CLI
+
+```bash
+node packages/core/dist/cli.js ./input.txt
+```
+
+- anonymized code → `stdout`
+- findings → `stderr`
+
+## 🔧 Use custom rules from JSON
 
 ```bash
 node packages/core/dist/cli.js ./input.txt ./anonymizations.json
 ```
 
-or:
+or
 
 ```bash
 ANONYMIZE_JSON=./anonymizations.json node packages/core/dist/cli.js ./input.txt
 ```
 
-## Practical examples
+## 🎯 Use cases
 
-See [`docs/examples`](./docs/examples):
-- [Email](./docs/examples/email.md)
-- [URL](./docs/examples/url.md)
-- [IP](./docs/examples/ip.md)
-- [AWS Keys](./docs/examples/aws-keys.md)
-- [CLI](./docs/examples/cli.md)
+- Safe AI usage (no leaks)
+- Sharing code publicly
+- Cleaning logs before debugging
+- Protecting internal data
+
+## 🏢 For teams
+
+Using AI with real code?
+
+You might be leaking sensitive data across your organization.
+
+→ Contact for a team-ready solution (policies, CI integration, custom rules)
+
+## 📚 Examples
+
+See [`docs/examples`](./docs/examples)
+
+## 💡 Keywords (SEO)
+
+anonymize code, remove secrets, redact code, AI privacy, sanitize logs, protect API keys
