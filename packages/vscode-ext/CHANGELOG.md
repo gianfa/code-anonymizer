@@ -1,5 +1,11 @@
 # redactor
 
+## 0.1.4
+
+### Patch Changes
+
+- 7e4e146: Add data/names to the bundle
+
 ## 0.1.3
 
 ### Patch Changes
