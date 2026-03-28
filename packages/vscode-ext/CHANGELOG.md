@@ -1,5 +1,11 @@
 # redactor
 
+## 0.1.3
+
+### Patch Changes
+
+- a67e82b: First vsce version
+
 ## 0.1.2
 
 ### Patch Changes
