@@ -1,5 +1,11 @@
 # redactor
 
+## 0.1.5
+
+### Patch Changes
+
+- 6d4ef77: feat(vsce, README): Improve 1-second setup
+
 ## 0.1.4
 
 ### Patch Changes
