@@ -26,11 +26,11 @@ RedActor anonymizes sensitive data directly in VS Code, locally.
 - `Anonymize Code` (`redactor.anonymize`)
 - `Anonymize Code (Preview Diff)` (`redactor.diff`)
 
-## 20-second setup
+## 1-second setup
 
-1. Open the file you want to sanitize
-2. Run **Anonymize Code**
-3. Share safely
+1. Open your file
+2. Right-click → **Anonymize Code**
+3. Done — safe to share
 
 ## Custom rules (team-ready)
 
