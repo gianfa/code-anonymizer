@@ -13,9 +13,9 @@
   "bugs": {
     "url": "https://github.com/gianfa/code-anonymizer/issues"
   },
-  "publisher": "PLACEHOLDER",
+  "publisher": "GianfrancescoAngelini",
   "main": "./dist/extension.js",
-  "private": true,
+  "private": false,
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -130,7 +130,7 @@
     "@gianfa/redactor-core": "workspace:*"
   },
   "devDependencies": {
-    "@types/vscode": "^1.110.0",
+    "@types/vscode": "^1.90.0",
     "@vscode/vsce": "3.7.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
