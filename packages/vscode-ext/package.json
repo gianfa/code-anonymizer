@@ -134,7 +134,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/extension.ts --format cjs --external vscode",
+    "build": "tsup src/extension.ts --format cjs --external vscode && mkdir -p data && cp ../core/data/names.txt data/names.txt",
     "dev": "tsup src/extension.ts --watch --format cjs --external vscode",
     "vscode:prepublish": "pnpm build",
     "typecheck": "pnpm --filter @gianfa/redactor-core build && tsc --noEmit -p tsconfig.json",
