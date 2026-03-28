@@ -42,7 +42,8 @@ jobs:
       - uses: changesets/action@v1
         id: changesets
         with:
-          publish: npm run release:core
+          publish: pnpm changeset publish
+          # publish: npm run release:core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
