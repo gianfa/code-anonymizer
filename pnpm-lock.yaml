@@ -46,11 +46,10 @@ importers:
   packages/core: {}
 
   packages/vscode-ext:
-    dependencies:
+    devDependencies:
       '@gianfa/redactor-core':
         specifier: workspace:*
         version: link:../core
-    devDependencies:
       '@types/vscode':
         specifier: ^1.90.0
         version: 1.110.0
