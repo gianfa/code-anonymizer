@@ -40,6 +40,7 @@ jobs:
         run: pnpm check:build
 
       - uses: changesets/action@v1
+        id: changesets
         with:
           publish: npm run release:core
         env:
@@ -56,8 +57,8 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-    #   - name: Publish VSCode extension
-    #     if: steps.changesets.outputs.hasChangesets == 'false' && steps.vscode_changed.outputs.changed == 'true'
-    #     run: pnpm --filter redactor exec vsce publish --pat "$VSCE_PAT"
-    #     env:
-    #       VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: Publish VSCode extension
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.vscode_changed.outputs.changed == 'true'
+        run: pnpm --filter redactor exec vsce publish --pat "$VSCE_PAT"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

@@ -70,7 +70,7 @@ function computeHighlightRangesFromFinalCode(
     patterns.push(new RegExp(escapeRegExp("https://example.com"), "g"));
   }
 
-  if (findings.ips > 0) {
+  if ((findings.ips ?? 0) > 0 || (findings.ipv4 ?? 0) > 0) {
     patterns.push(new RegExp(escapeRegExp("0.0.0.0"), "g"));
   }
 
@@ -269,7 +269,7 @@ export function activate(context: vscode.ExtensionContext): void {
         enableUrls: config.get<boolean>("enableUrls", true),
         enableIps: config.get<boolean>("enableIps", true),
         enableSecrets: config.get<boolean>("enableSecrets", true),
-        enableNames: config.get<boolean>("enableNames", false),
+        enableNames: config.get<boolean>("enableNames", true),
         customAnonymizations
       };
 

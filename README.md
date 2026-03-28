@@ -2,6 +2,8 @@
 
 > Anonymize code before sharing or using AI.
 
+<img src="https://github.com/gianfa/code-anonymizer/blob/develop/assets/logo/logo-1.png?raw=true" width='400px'>
+
 Automatically detect and remove sensitive data from your code, logs, and prompts — locally, with zero setup.
 
 ## 🚀 Why RedActor
@@ -112,13 +114,13 @@ pnpm build
 ### Core package
 
 ```bash
-pnpm add @code-anonymizer/core
+pnpm add @gianfa/redactor-core
 ```
 
 ## ⚙️ Usage
 
 ```ts
-import { anonymize } from "@code-anonymizer/core";
+import { anonymize } from "@gianfa/redactor-core";
 
 const result = anonymize(code);
 
