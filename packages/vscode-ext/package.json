@@ -15,6 +15,11 @@
     "gdpr",
     "sanitize"
   ],
+  "categories": [
+    "Other",
+    "Snippets",
+    "Linters"
+  ],
   "galleryBanner": {
     "color": "#0b0b0b",
     "theme": "dark"
@@ -33,9 +38,6 @@
   "engines": {
     "vscode": "^1.90.0"
   },
-  "categories": [
-    "Other"
-  ],
   "activationEvents": [
     "onCommand:redactor.anonymize",
     "onCommand:redactor.diff"
