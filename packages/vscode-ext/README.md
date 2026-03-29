@@ -1,6 +1,6 @@
 # RedActor — Anonymize Code in 1 Click
 
-![demo](./assets/demo.gif)
+<img src="https://github.com/gianfa/code-anonymizer/blob/main/packages/vscode-ext/assets/demo.gif?raw=true">
 
 Anonymize sensitive data (emails, API keys, IPs, URLs) in code and logs instantly.
 
