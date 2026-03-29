@@ -7,18 +7,20 @@
   "license": "MIT",
   "icon": "assets/icon.png",
   "keywords": [
-    "privacy",
     "anonymize",
+    "sanitize",
+    "privacy",
     "security",
+    "secrets",
     "logs",
-    "pii",
     "gdpr",
-    "sanitize"
+    "pii"
   ],
   "categories": [
     "Other",
     "Snippets",
-    "Linters"
+    "Linters",
+    "Programming Languages"
   ],
   "galleryBanner": {
     "color": "#0b0b0b",
