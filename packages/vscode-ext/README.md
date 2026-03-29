@@ -1,7 +1,6 @@
 # RedActor — Anonymize Code in 1 Click
 
-<img src="https://github.com/gianfa/code-anonymizer/blob/develop/assets/logo/logo-1.png?raw=true">
-
+![logo](./assets/logo_min.png)
 ![demo](./assets/demo.gif)
 
 Anonymize sensitive data (emails, API keys, IPs, URLs) in code and logs instantly.

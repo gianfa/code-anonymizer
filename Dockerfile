@@ -13,6 +13,7 @@ RUN apt-get update \
   bash \
   openssh-client \
   tree \
+  ffmpeg pngquant webp \
   && rm -rf /var/lib/apt/lists/*
 
 RUN corepack enable

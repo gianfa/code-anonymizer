@@ -5,7 +5,7 @@
   "version": "0.1.2",
   "author": "Gianfrancesco Angelini",
   "license": "MIT",
-  "icon": "assets/icon.png",
+  "icon": "assets/icon_min.png",
   "keywords": [
     "anonymize",
     "sanitize",
