@@ -1,6 +1,7 @@
 # ----- DEV -----
 .DS_STore
 *-hidden*
+*.mov
 
 # ----- VSCODE -----
 
