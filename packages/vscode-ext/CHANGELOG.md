@@ -1,5 +1,11 @@
 # redactor
 
+## 0.1.6
+
+### Patch Changes
+
+- 605f71a: Improve README, rm logo
+
 ## 0.1.5
 
 ### Patch Changes
