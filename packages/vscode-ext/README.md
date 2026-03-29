@@ -1,6 +1,5 @@
 # RedActor — Anonymize Code in 1 Click
 
-![logo](./assets/logo_min.png)
 ![demo](./assets/demo.gif)
 
 Anonymize sensitive data (emails, API keys, IPs, URLs) in code and logs instantly.
@@ -9,11 +8,29 @@ Anonymize sensitive data (emails, API keys, IPs, URLs) in code and logs instantl
 
 RedActor anonymizes sensitive data directly in VS Code, locally.
 
+## Example
+
+Before
+
+```txt
+User: marco.rossi@company.com
+API: https://payments.internal.company.com/v1/charge
+IP: 10.42.18.7
+```
+
+After
+
+```txt
+User: user@example.com
+API: https://example.com/v1/charge
+IP: 0.0.0.0
+```
+
 ## Why people install it
 
-- Fast: run from context menu or command palette
-- Safe: no cloud, no API calls, no data exfiltration
-- Practical: preview diff before sharing
+- Fast: run from the context menu or command palette
+- Local: no cloud, no API calls, no data leaves your machine
+- Useful: preview the diff before sharing
 
 ## What it anonymizes
 
