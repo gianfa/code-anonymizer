@@ -5,20 +5,22 @@
   "version": "0.1.5",
   "author": "Gianfrancesco Angelini",
   "license": "MIT",
-  "icon": "assets/icon.png",
+  "icon": "assets/icon_min.png",
   "keywords": [
-    "privacy",
     "anonymize",
+    "sanitize",
+    "privacy",
     "security",
+    "secrets",
     "logs",
-    "pii",
     "gdpr",
-    "sanitize"
+    "pii"
   ],
   "categories": [
     "Other",
     "Snippets",
-    "Linters"
+    "Linters",
+    "Programming Languages"
   ],
   "galleryBanner": {
     "color": "#0b0b0b",

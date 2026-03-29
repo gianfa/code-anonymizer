@@ -1,6 +1,9 @@
 # RedActor — Anonymize Code in 1 Click
 
-<img src="https://github.com/gianfa/code-anonymizer/blob/develop/assets/logo/logo-1.png?raw=true">
+![logo](./assets/logo_min.png)
+![demo](./assets/demo.gif)
+
+Anonymize sensitive data (emails, API keys, IPs, URLs) in code and logs instantly.
 
 **Stop leaking secrets to AI, issues, and chats.**
 
@@ -52,8 +55,10 @@ RedActor anonymizes sensitive data directly in VS Code, locally.
 "redactor.highlight.color": "rgba(0, 255, 0, 0.15)"
 ```
 
-## Positioning
+## When to use
 
-If you use AI tools daily, this should be always-on.
+- Before pasting code into AI tools (ChatGPT, Copilot)
+- Before posting logs on Slack or GitHub issues
+- Before sharing snippets on Stack Overflow
 
 **Copy less risk. Paste with confidence.**
