@@ -1,5 +1,11 @@
 # redactor
 
+## 0.1.7
+
+### Patch Changes
+
+- daff570: fix(vsce, README): replace demo gif with link
+
 ## 0.1.6
 
 ### Patch Changes
