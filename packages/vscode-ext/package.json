@@ -2,7 +2,7 @@
   "name": "redactor",
   "displayName": "RedActor",
   "description": "Anonymize sensitive code snippets before sharing.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Gianfrancesco Angelini",
   "license": "MIT",
   "icon": "assets/icon_min.png",
